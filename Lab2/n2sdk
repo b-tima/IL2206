@@ -1,0 +1,15 @@
+#!/bin/bash
+# Run this for a Nios II SDK bash shell
+export LM_LICENSE_FILE=@lic03.ug.kth.se
+SOPC_KIT_NIOS2=/home/morgan/altera/13.0sp1/nios2eds
+export SOPC_KIT_NIOS2
+SOPC_BUILDER_PATH_130=/home/morgan/altera/13.0sp1/nios2eds
+export SOPC_BUILDER_PATH_130
+unset GCC_EXEC_PREFIX
+QUARTUS_ROOTDIR=/home/morgan/altera/13.0sp1/quartus
+MODELSIM_ROOTDIR=/home/morgan/altera/13.0sp1/modelsim_ase
+PATH=$MODELSIM_ROOTDIR/bin:$PATH
+export QUARTUS_ROOTDIR
+export PERL5LIB=/usr/lib/perl/5.18.2
+#cd /home/morgan/Desktop/
+bash --rcfile $QUARTUS_ROOTDIR/sopc_builder/bin/nios_bash
