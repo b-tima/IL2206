@@ -4,6 +4,8 @@
 #include "includes.h"
 #include <string.h>
 
+#include <stdint.h>
+
 #define DEBUG 1
 
 /* Definition of Task Stacks */
@@ -42,12 +44,13 @@ void printStackSize(char *name, INT8U prio)
 /* Prints a message and sleeps for given time interval */
 void task1(void *pdata)
 {
+    uint8_t perr;
     while (1)
     {
         char text1[] = "Hello from Task1\n";
         int i;
-
-        OSSemPend(sem, 0, NULL);
+        
+        OSSemPend(sem, 0, &perr);
         for (i = 0; i < strlen(text1); i++)
             putchar(text1[i]);
         OSSemPost(sem);
@@ -62,12 +65,13 @@ void task1(void *pdata)
 /* Prints a message and sleeps for given time interval */
 void task2(void *pdata)
 {
+    uint8_t perr;
     while (1)
     {
         char text2[] = "Hello from Task2\n";
         int i;
 
-        OSSemPend(sem, 0, NULL);
+        OSSemPend(sem, 0, &perr);
         for (i = 0; i < strlen(text2); i++)
             putchar(text2[i]);
         OSSemPost(sem);
@@ -101,7 +105,7 @@ int main(void)
                     TASK_STACKSIZE,                 // Stacksize
                     NULL,                           // Pointer to user supplied memory (not needed)
                     OS_TASK_OPT_STK_CHK |           // Stack Checking enabled
-                        OS_TASK_OPT_STK_CLR         // Stack Cleared
+                    OS_TASK_OPT_STK_CLR             // Stack Cleared
     );
 
     OSTaskCreateExt(task2,                          // Pointer to task code
@@ -113,7 +117,7 @@ int main(void)
                     TASK_STACKSIZE,                 // Stacksize
                     NULL,                           // Pointer to user supplied memory (not needed)
                     OS_TASK_OPT_STK_CHK |           // Stack Checking enabled
-                        OS_TASK_OPT_STK_CLR         // Stack Cleared
+                    OS_TASK_OPT_STK_CLR             // Stack Cleared
     );
 
     if (DEBUG == 1)
@@ -127,11 +131,11 @@ int main(void)
                         TASK_STACKSIZE,                // Stacksize
                         NULL,                          // Pointer to user supplied memory (not needed)
                         OS_TASK_OPT_STK_CHK |          // Stack Checking enabled
-                            OS_TASK_OPT_STK_CLR        // Stack Cleared
+                        OS_TASK_OPT_STK_CLR            // Stack Cleared
         );
     }
-
-    OSInit();
+    
+    //OSInit();
 
     sem = OSSemCreate(1);
 

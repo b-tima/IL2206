@@ -43,7 +43,7 @@ void task1(void* pdata)
     { 
       char text1[] = "Hello from Task1\n";
       int i;
-z
+
       for (i = 0; i < strlen(text1); i++)
 	putchar(text1[i]);
       OSTimeDlyHMSM(0, 0, 0, 11); /* Context Switch to next task
